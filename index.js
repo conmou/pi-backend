@@ -12,42 +12,48 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/min", async (req, res) => {
-    const snapshot = await min.orderBy('temp','desc').limit(5).get();
-    const list = snapshot.docs.map((doc) => ({ 
-        // const timestamp = element.data().TS
-        // const date = new Date(timestamp)
-        // time = {
-        //     nanoseconds: 0,
-        //     seconds: date
-        // }
-        // const limit = new Date(time.seconds*1000)
-        // const list2 = limit.toLocaleString("zh-TW");
-        id: doc.id, temp: doc.data().temp, hunidity: doc.data().hunidity, TS: doc.data().TS 
-    }));
-    
-    // min.orderBy('TS','desc').limit(5).get().then(snapshot => {
-    //     snapshot.forEach( element => {
-    //         const timestamp = element.data().TS
-    //         const date = new Date(timestamp);
-    //         // console.log(date.getDay())
-    //         time = {
-    //             nanoseconds: 0,
-    //             seconds: date
-    //         }
-    //         const limit = new Date(time.seconds*1000)
-    //         // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    //         // console.log(limit.toLocaleDateString(undefined, options))
-    //         const list2 = limit.toLocaleString("zh-TW");
-    //         res.send(list2);
-    //     })
-    // })
+    const snapshot = await min.orderBy('time','desc').limit(10).get();
+    const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}));
+
+    // const data = await min.orderBy('TS','desc').limit(5).get().then(snapshot => {
+    //     //         snapshot.forEach( element => {
+    //     //             const timestamp = element.data().TS
+    //     //             const date = new Date(timestamp);
+    //     //             // console.log(date.getDay())
+    //     //             time = {
+    //     //                 nanoseconds: 0,
+    //     //                 seconds: date
+    //     //             }
+    //     //             const limit = new Date(time.seconds*1000)
+    //     //             // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    //     //             // console.log(limit.toLocaleDateString(undefined, options))
+    //     //             const list2 = limit.toLocaleString("zh-TW");
+    //     //             res.send(list2);
+    //     //         })
+    //     //     })
+        
     list.reverse()
     res.send(list);
 });
 
-app.get("/day", async(req,res) => {
-    
-})
+// app.get("/day", async (req, res) => {
+//     const data = await min.orderBy('TS','desc').limit(5).get().then(snapshot => {
+//         snapshot.forEach( element => {
+//             const timestamp = element.data().TS
+//             const date = new Date(timestamp);
+//             // console.log(date.getDay())
+//             time = {
+//                 nanoseconds: 0,
+//                 seconds: date
+//             }
+//             const limit = new Date(time.seconds*1000)
+//             // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+//             // console.log(limit.toLocaleDateString(undefined, options))
+//             const list2 = limit.toLocaleString("zh-TW");
+//             res.send(list2);
+//         })
+//     })
+// });
 
 // app.get("/date", async (req, res) => {
 //     const snapshot = await date.orderBy('date','desc').limit(5).get();
