@@ -12,7 +12,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/min", async (req, res) => {
-    const snapshot = await min.orderBy('time','desc').limit(10).get();
+    const snapshot = await min.orderBy('TS','desc').limit(10).get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}));
 
     // const data = await min.orderBy('TS','desc').limit(5).get().then(snapshot => {
