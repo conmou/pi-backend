@@ -4,7 +4,6 @@ const min = require("./config");
 // const date = require("./config");
 // const { query } = require("express");
 const app = express();
-app.use(express.json());
 app.use(cors());
 
 app.get("/", async (req, res) => {
@@ -12,10 +11,17 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/min", async (req, res) => {
-    const snapshot = await min.orderBy('TS','desc').limit(10).get();
+    const snapshot = await min.orderBy('temp','desc').limit(10).get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}));
-
-    // const data = await min.orderBy('TS','desc').limit(5).get().then(snapshot => {
+    // snapshot.forEach(element => {
+    //     console.log(element.data())
+    // });
+    // const unsubscribe = min.onSnapshot((querySnapshot) => {
+    //     console.log(`Received query snapshot of size ${querySnapshot.size}`);
+    // });
+    // res.send(unsubscribe)
+    // const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}));
+    // const data = await min.orderB吧y('TS','desc').limit(5).get().then(snapshot => {
     //     //         snapshot.forEach( element => {
     //     //             const timestamp = element.data().TS
     //     //             const date = new Date(timestamp);
@@ -34,7 +40,7 @@ app.get("/min", async (req, res) => {
         
     list.reverse()
     res.send(list);
-});
+}); 
 
 // app.get("/day", async (req, res) => {
 //     const data = await min.orderBy('TS','desc').limit(5).get().then(snapshot => {
