@@ -17,6 +17,5 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const min = db.collection("Min");
 // const date = db.collection("Date");
-module.exports = min;
+module.exports = db;
