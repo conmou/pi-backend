@@ -18,9 +18,8 @@ app.get("/min", async (req, res) => {
 }); 
 
 app.get("/day", async (req, res) => {
-    const snapshot = await db.collection("Day").orderBy('TS','desc').limit(10).get();
+    const snapshot = await db.collection("Day").orderBy('TS','desc').limit(5).get();
     const Daylist = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()}));
-    
     Daylist.reverse()
     res.send(Daylist);
 }); 
